@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ToDoListViewController.swift
 //  List App
 //
 //  Created by Elina Mansurova on 2020-12-15.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ToDoListViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
