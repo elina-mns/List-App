@@ -28,6 +28,9 @@ class ToDoListViewController: UITableViewController {
         newItem.title = "Destroy Demogorgon"
         items.append(newItem3)
         
+        if let itemsArray = defaults.array(forKey: "List Array") as? [Item] {
+            items = itemsArray
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -39,11 +42,7 @@ class ToDoListViewController: UITableViewController {
         let itemArray = items[indexPath.row]
         cell.textLabel?.text = itemArray.title
         
-        if itemArray.done == true {
-            cell.accessoryType = .checkmark
-        } else {
-            cell.accessoryType = .none
-        }
+        cell.accessoryType = itemArray.done ? .checkmark : .none
         return cell
     }
     
