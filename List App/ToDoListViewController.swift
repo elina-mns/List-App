@@ -13,7 +13,7 @@ class ToDoListViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -36,6 +36,15 @@ class ToDoListViewController: UITableViewController {
         }
         tableView.deselectRow(at: indexPath, animated: true)
         
+    }
+
+    @IBAction func addNewItemPressed(_ sender: UIBarButtonItem) {
+        let alert = UIAlertController(title: "New list item", message: "", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Add item", style: .default) { (action) in
+            
+        }
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
     }
 }
 
