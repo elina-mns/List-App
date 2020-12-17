@@ -14,6 +14,7 @@
 		310093A425895F0B00FFFB01 /* List_App.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 310093A225895F0B00FFFB01 /* List_App.xcdatamodeld */; };
 		310093A625895F0E00FFFB01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 310093A525895F0E00FFFB01 /* Assets.xcassets */; };
 		310093A925895F0E00FFFB01 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 310093A725895F0E00FFFB01 /* LaunchScreen.storyboard */; };
+		3151823D258C0337002FBC9D /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3151823C258C0337002FBC9D /* CategoryViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		310093A525895F0E00FFFB01 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		310093A825895F0E00FFFB01 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		310093AA25895F0E00FFFB01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3151823C258C0337002FBC9D /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 		316FFDF9258A99A100319CC8 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				3151823C258C0337002FBC9D /* CategoryViewController.swift */,
 				3100939D25895F0B00FFFB01 /* ToDoListViewController.swift */,
 			);
 			path = ViewControllers;
@@ -172,6 +175,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3151823D258C0337002FBC9D /* CategoryViewController.swift in Sources */,
 				3100939E25895F0B00FFFB01 /* ToDoListViewController.swift in Sources */,
 				310093A425895F0B00FFFB01 /* List_App.xcdatamodeld in Sources */,
 				3100939A25895F0B00FFFB01 /* AppDelegate.swift in Sources */,

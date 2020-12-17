@@ -17,7 +17,6 @@ class ToDoListViewController: UITableViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         searchBar.delegate = self
         loadItems()
     }
@@ -86,6 +85,7 @@ class ToDoListViewController: UITableViewController, UISearchBarDelegate {
         } catch {
             print("Error fetching data from context \(error)")
         }
+        tableView.reloadData()
     }
     
     //MARK: - Search Bar Functions
@@ -99,6 +99,15 @@ class ToDoListViewController: UITableViewController, UISearchBarDelegate {
         //sort the results of search bar
         request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
         loadItems(with: request)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0 {
+            loadItems() //fetches all of the items from the persistent store
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+        }
     }
 }
 
