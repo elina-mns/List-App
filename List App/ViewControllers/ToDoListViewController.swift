@@ -6,14 +6,14 @@
 //
 
 import UIKit
-import CoreData
+import RealmSwift
 
 class ToDoListViewController: UITableViewController, UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var items = [Item]()
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var items: Results<Item>?
+    let realm = try! Realm()
     var selectedCategory: Category? {
         didSet {
             loadItems()
@@ -28,15 +28,17 @@ class ToDoListViewController: UITableViewController, UISearchBarDelegate {
     //MARK: - Table View Functions
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        return items?.count ?? 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath)
-        let itemArray = items[indexPath.row]
-        cell.textLabel?.text = itemArray.title
-        
-        cell.accessoryType = itemArray.done ? .checkmark : .none
+        if let itemArray = items?[indexPath.row] {
+            cell.textLabel?.text = itemArray.title
+            cell.accessoryType = itemArray.done ? .checkmark : .none
+        } else {
+            cell.textLabel?.text = "No Items Added"
+        }
         return cell
     }
     
@@ -45,8 +47,8 @@ class ToDoListViewController: UITableViewController, UISearchBarDelegate {
 //        context.delete(items[indexPath.row])
 //        items.remove(at: indexPath.row)
         
-        items[indexPath.row].done = !items[indexPath.row].done
-        saveItem()
+//        items[indexPath.row].done = !items[indexPath.row].done
+//        saveItem()
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
@@ -55,13 +57,18 @@ class ToDoListViewController: UITableViewController, UISearchBarDelegate {
         
         let alert = UIAlertController(title: "New list item", message: "", preferredStyle: .alert)
         let action = UIAlertAction(title: "Add item", style: .default) { (action) in
-    
-            let newItem = Item(context: self.context)
-            newItem.title = textField.text!
-            newItem.done = false
-            newItem.parentCategory = self.selectedCategory
-            self.items.append(newItem)
-            self.saveItem()
+            
+            if let currentCategory = self.selectedCategory {
+                do {
+                    try self.realm.write {
+                        let newItem = Item()
+                        newItem.title = textField.text!
+                        currentCategory.itemsList.append(newItem)
+                    }
+                } catch {
+                    print("Error saving new items, \(error)")
+                }
+            }
         }
         
         alert.addTextField { (alertTextField) in
@@ -72,30 +79,9 @@ class ToDoListViewController: UITableViewController, UISearchBarDelegate {
         present(alert, animated: true, completion: nil)
     }
     
-    //MARK: - Model Manipulation Functions
     
-    func saveItem() {
-        do {
-            try context.save()
-        } catch {
-            print("Error saving context, \(error)")
-        }
-        
-        tableView.reloadData()
-    }
-    
-    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest(), using predicate: NSPredicate? = nil) {
-        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
-        if let additionalPredicate = predicate {
-            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, additionalPredicate])
-        } else {
-            request.predicate = categoryPredicate
-        }
-        do {
-            items = try context.fetch(request)
-        } catch {
-            print("Error fetching data from context \(error)")
-        }
+    func loadItems() {
+        items = selectedCategory?.itemsList.sorted(byKeyPath: "title", ascending: true)
         tableView.reloadData()
     }
     
