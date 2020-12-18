@@ -43,12 +43,16 @@ class ToDoListViewController: UITableViewController, UISearchBarDelegate {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // the order of these steps below are important for the correct removal of items
-//        context.delete(items[indexPath.row])
-//        items.remove(at: indexPath.row)
-        
-//        items[indexPath.row].done = !items[indexPath.row].done
-//        saveItem()
+        if let item = items?[indexPath.row] {
+            do {
+                try realm.write {
+                    item.done = !item.done
+            }
+            } catch {
+                print("Error saving done status, \(error)")
+            }
+        }
+        tableView.reloadData()
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
@@ -69,6 +73,7 @@ class ToDoListViewController: UITableViewController, UISearchBarDelegate {
                     print("Error saving new items, \(error)")
                 }
             }
+            self.tableView.reloadData()
         }
         
         alert.addTextField { (alertTextField) in
@@ -88,14 +93,9 @@ class ToDoListViewController: UITableViewController, UISearchBarDelegate {
     //MARK: - Search Bar Functions
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        let request: NSFetchRequest<Item> = Item.fetchRequest()
-        
-        //filter the results of search bar
-        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
-        
-        //sort the results of search bar
-        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
-        loadItems(with: request, using: predicate)
+        //how to query Realm database with 1 line
+        items = items?.filter("title CONTAINS[cd] %@", searchBar.text).sorted(byKeyPath: "title", ascending: true)
+        tableView.reloadData()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
