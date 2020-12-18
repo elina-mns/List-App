@@ -7,5 +7,6 @@ use_frameworks!
   # Pods for List App
   
 pod 'RealmSwift'
+pod 'SwipeCellKit'
 
 end
