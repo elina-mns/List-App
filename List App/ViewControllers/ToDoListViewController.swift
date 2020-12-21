@@ -7,6 +7,7 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
 class ToDoListViewController: SwipeTableViewController, UISearchBarDelegate {
     
@@ -35,6 +36,11 @@ class ToDoListViewController: SwipeTableViewController, UISearchBarDelegate {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         if let itemArray = items?[indexPath.row] {
             cell.textLabel?.text = itemArray.title
+            //takes color from chosen category and the list of items is the same color 
+            if let color = UIColor(hexString: selectedCategory?.color).darken(byPercentage: CGFloat(indexPath.row) / CGFloat(items!.count)) {
+                cell.backgroundColor = color
+                cell.textLabel?.textColor = ContrastColorOf(backgroundColor: color, returnFlat: true)
+            }
             cell.accessoryType = itemArray.done ? .checkmark : .none
         } else {
             cell.textLabel?.text = "No Items Added"
