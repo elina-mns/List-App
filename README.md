@@ -19,3 +19,6 @@ List App based on Udemy bootcamp course - iOS development.
 * SwipeCellKit - where user deletes the cell by swiping to the left with one gesture 
 * RealmSwift - a convenient way to persist data
 * ChameleonFramework - usage of random colors assigned and usage of gradient for the same color assigned when we picked a category
+
+
+<img src="" width=300, height=600, align="left"/>
