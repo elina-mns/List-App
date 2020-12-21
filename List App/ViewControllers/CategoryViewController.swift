@@ -7,6 +7,7 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
 class CategoryViewController: SwipeTableViewController {
     
@@ -28,6 +29,7 @@ class CategoryViewController: SwipeTableViewController {
         //taps into the cell created on our superview
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         cell.textLabel?.text = categories?[indexPath.row].name ?? "No Categories Added"
+        cell.backgroundColor = UIColor.init(randomColorIn: [UIColor.init(named: "color1")!, UIColor.init(named: "color2")!, UIColor.init(named: "color3")!, UIColor.init(named: "color4")!])
         return cell
     }
     
