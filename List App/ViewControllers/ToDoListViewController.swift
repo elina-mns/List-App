@@ -24,6 +24,16 @@ class ToDoListViewController: SwipeTableViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
+        navigationController?.navigationBar.barTintColor = .black
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let colorHex = selectedCategory?.color {
+            guard let navBar = navigationController?.navigationBar else {
+                fatalError()
+            }
+            navBar.barTintColor = UIColor(hexString: colorHex)
+        }
     }
     
     //MARK: - Table View Functions
@@ -36,7 +46,7 @@ class ToDoListViewController: SwipeTableViewController, UISearchBarDelegate {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         if let itemArray = items?[indexPath.row] {
             cell.textLabel?.text = itemArray.title
-            //takes color from chosen category and the list of items is the same color 
+            //takes color from chosen category and the list of items is the same color
             if let color = UIColor(hexString: selectedCategory?.color).darken(byPercentage: CGFloat(indexPath.row) / CGFloat(items!.count)) {
                 cell.backgroundColor = color
                 cell.textLabel?.textColor = ContrastColorOf(backgroundColor: color, returnFlat: true)
