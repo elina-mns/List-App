@@ -13,6 +13,7 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = 80.0
+        tableView.separatorColor = UIColor.init(named: "color3")
     }
     
     //MARK: - TableView Datasource Methods
