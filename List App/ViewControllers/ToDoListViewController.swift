@@ -23,7 +23,6 @@ class ToDoListViewController: SwipeTableViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
-        tableView.rowHeight = 80.0
     }
     
     //MARK: - Table View Functions
