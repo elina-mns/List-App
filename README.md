@@ -1,5 +1,5 @@
 # List-App
-List App based on Udemy bootcamp course - iOS development.
+List App based on Udemy bootcamp course - iOS development. Pretty simple, but quite meaningful to me in terms of knowledge.
 
 1. First view is a category which user can set by pressing a plus sign 
 2. Second view is a list of items in created category from the first view
