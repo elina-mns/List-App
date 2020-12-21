@@ -21,4 +21,5 @@ List App based on Udemy bootcamp course - iOS development.
 * ChameleonFramework - usage of random colors assigned and usage of gradient for the same color assigned when we picked a category
 
 
-<img src="" width=300, height=600, align="left"/>
+<img src="https://github.com/elina-mns/List-App/blob/main/List%20App/Assets.xcassets/11.png" width=300, height=600, align="left"/>
+<img src="https://github.com/elina-mns/List-App/blob/main/List%20App/Assets.xcassets/1.png" width=300, height=600, align="right"/>
