@@ -24,7 +24,6 @@ class ToDoListViewController: SwipeTableViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
-        navigationController?.navigationBar.barTintColor = .black
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,7 +33,12 @@ class ToDoListViewController: SwipeTableViewController, UISearchBarDelegate {
             guard let navBar = navigationController?.navigationBar else {
                 fatalError()
             }
-            navBar.barTintColor = UIColor(hexString: colorHex)
+            if let navBarColor = UIColor(hexString: colorHex) {
+                navBar.barTintColor = navBarColor
+                navBar.tintColor = ContrastColorOf(backgroundColor: navBarColor, returnFlat: true)
+                navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: ContrastColorOf(backgroundColor: navBarColor, returnFlat: true)]
+                searchBar.barTintColor = navBarColor
+            }
         }
     }
     
