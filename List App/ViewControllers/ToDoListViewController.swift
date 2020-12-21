@@ -8,7 +8,7 @@
 import UIKit
 import RealmSwift
 
-class ToDoListViewController: UITableViewController, UISearchBarDelegate {
+class ToDoListViewController: SwipeTableViewController, UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -32,7 +32,7 @@ class ToDoListViewController: UITableViewController, UISearchBarDelegate {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath)
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         if let itemArray = items?[indexPath.row] {
             cell.textLabel?.text = itemArray.title
             cell.accessoryType = itemArray.done ? .checkmark : .none
