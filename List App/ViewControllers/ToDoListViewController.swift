@@ -23,6 +23,7 @@ class ToDoListViewController: SwipeTableViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
+        tableView.rowHeight = 80.0
     }
     
     //MARK: - Table View Functions
@@ -103,6 +104,21 @@ class ToDoListViewController: SwipeTableViewController, UISearchBarDelegate {
             loadItems() //fetches all of the items from the persistent store
             DispatchQueue.main.async {
                 searchBar.resignFirstResponder()
+            }
+        }
+    }
+    
+    
+    //MARK: - Delete Section: Delete from Swipe
+    
+    override func updateModel(at indexPath: IndexPath) {
+        if let itemForDeletion = self.items?[indexPath.row] {
+            do {
+                try self.realm.write {
+                    self.realm.delete(itemForDeletion)
+                }
+            } catch {
+                print("Error deleting item \(error)")
             }
         }
     }

@@ -42,7 +42,7 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
     
     func updateModel(at indexPath: IndexPath) {
         //delete the cell selected
-        
+        //we will use the override method in CategoryVC instead
     }
 
 }
