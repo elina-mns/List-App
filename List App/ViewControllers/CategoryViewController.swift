@@ -30,21 +30,8 @@ class CategoryViewController: SwipeTableViewController {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         guard let category = categories?[indexPath.row] else { fatalError("No category is found") }
         cell.textLabel?.text = category.name
-        
-        if category.color.isEmpty == true {
-            let randomColor = UIColor.init(randomColorIn: [UIColor.init(named: "color1")!, UIColor.init(named: "color2")!, UIColor.init(named: "color3")!, UIColor.init(named: "color4")!])
-            cell.backgroundColor = randomColor
-            do {
-                try realm.write {
-                    category.color = randomColor?.hexValue() ?? ""
-                }
-            } catch {
-                print("Error saving category, \(error)")
-            }
-        } else {
-            let color = UIColor(hexString: category.color)
-            cell.backgroundColor = color
-        }
+        let color = UIColor(hexString: category.color)
+        cell.backgroundColor = color
         return cell
     }
     
@@ -59,7 +46,9 @@ class CategoryViewController: SwipeTableViewController {
         let alert = UIAlertController(title: "New category item", message: "", preferredStyle: .alert)
         let action = UIAlertAction(title: "Add category", style: .default) { (action) in
             let newCategory = Category()
-            newCategory.name = textField.text!
+            newCategory.name = textField.text ?? ""
+            let randomColor = UIColor.init(randomColorIn: [UIColor.init(named: "color1")!, UIColor.init(named: "color2")!, UIColor.init(named: "color3")!, UIColor.init(named: "color4")!])
+            newCategory.color = randomColor?.hexValue() ?? ""
             self.save(category: newCategory)
         }
         
