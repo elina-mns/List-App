@@ -29,6 +29,8 @@ class ToDoListViewController: SwipeTableViewController, UISearchBarDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         if let colorHex = selectedCategory?.color {
+            //set the name of title by selected category
+            title = selectedCategory!.name
             guard let navBar = navigationController?.navigationBar else {
                 fatalError()
             }
