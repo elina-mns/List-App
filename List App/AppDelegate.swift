@@ -17,6 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } catch {
             print("Error initializing new realm, \(error)")
         }
+        let dirPaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+
+        let docsDir = dirPaths[0]
+
+        print(docsDir)
         return true
     }
 

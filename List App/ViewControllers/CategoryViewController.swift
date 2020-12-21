@@ -28,8 +28,23 @@ class CategoryViewController: SwipeTableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //taps into the cell created on our superview
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
-        cell.textLabel?.text = categories?[indexPath.row].name ?? "No Categories Added"
-        cell.backgroundColor = UIColor.init(randomColorIn: [UIColor.init(named: "color1")!, UIColor.init(named: "color2")!, UIColor.init(named: "color3")!, UIColor.init(named: "color4")!])
+        guard let category = categories?[indexPath.row] else { fatalError("No category is found") }
+        cell.textLabel?.text = category.name
+        
+        if category.color.isEmpty == true {
+            let randomColor = UIColor.init(randomColorIn: [UIColor.init(named: "color1")!, UIColor.init(named: "color2")!, UIColor.init(named: "color3")!, UIColor.init(named: "color4")!])
+            cell.backgroundColor = randomColor
+            do {
+                try realm.write {
+                    category.color = randomColor?.hexValue() ?? ""
+                }
+            } catch {
+                print("Error saving category, \(error)")
+            }
+        } else {
+            let color = UIColor(hexString: category.color)
+            cell.backgroundColor = color
+        }
         return cell
     }
     
